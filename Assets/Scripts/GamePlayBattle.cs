@@ -7,6 +7,8 @@ using UnityEngine;
 
 public class GamePlayBattle : NetworkManager
 {
+    [SerializeField] private SpawnTransform[] _Transform;
+    [SerializeField] private int _CurrentIndex;
     private Config _Config;
 
     public override void Awake()
@@ -16,6 +18,28 @@ public class GamePlayBattle : NetworkManager
         ((KcpTransport)transport).Port = _Config.Port;
 
         base.Awake();
+    }
+
+    public override void OnServerAddPlayer(NetworkConnectionToClient conn)
+    {
+        if(_CurrentIndex > _Transform.Length -1)
+        {
+            _CurrentIndex = 0;
+        }
+
+        Transform startPos = _Transform[_CurrentIndex].transform;
+        GameObject player = startPos != null
+            ? Instantiate(playerPrefab, startPos.position, startPos.rotation)
+            : Instantiate(playerPrefab);
+
+        Character character = player.GetComponent<Character>();
+        character.UserNo = numPlayers;
+        character.SpawnIndex = _CurrentIndex;
+        // instantiating a "Player" prefab gives it the name "Player(clone)"
+        // => appending the connectionId is WAY more useful for debugging!
+        player.name = $"{playerPrefab.name} [connId={conn.connectionId}]";
+        NetworkServer.AddPlayerForConnection(conn, player);
+        _CurrentIndex++;
     }
 
     public override void OnClientConnect()
@@ -28,7 +52,7 @@ public class GamePlayBattle : NetworkManager
             yield return new WaitForSeconds(1f);
 
             Character character = NetworkClient.connection.identity.gameObject.GetComponent<Character>();
-            character.Setup(NetworkClient.connection.identity.name + ":" + numPlayers);
+            character.Setup("Player" + ":" + numPlayers, _Transform[character.SpawnIndex]);
             character.ConfiMP(_Config.MPRegenerateRate, _Config.MPRegenerateValue);
             character.ConfigSkillCooldown(_Config.SkillCooldown);
             character.ConfigSkillUsageMP(20, 50, 60, 90);

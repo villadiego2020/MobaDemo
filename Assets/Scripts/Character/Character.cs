@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class Character : NetworkBehaviour
 {
+    [SyncVar]
+    public int UserNo;
+    [SyncVar]
+    public int SpawnIndex;
+
     [Header("Character - UI")]
     [SerializeField] private CharacterHUD _CharacterHUD;
     [SerializeField] private CharacterRegenerateMP _CharacterRegenerateMP;
@@ -36,7 +41,7 @@ public class Character : NetworkBehaviour
     private int _Skill3MPUsage;
     private int _Skill4MPUsage;
 
-    public void Setup(string characterName)
+    public void Setup(string characterName, SpawnTransform st)
     {
         GameObject uiGo = GameObject.Find("UICanvas");
 
@@ -47,6 +52,9 @@ public class Character : NetworkBehaviour
         GameObject camGo = GameObject.Find("CameraPivot");
         _Follower = camGo.GetComponent<Follower>();
         _Follower.Target = _Model.transform;
+        _Follower.OffsetPosition = st.Position;
+        _Follower.OffsetRotation = st.Rotation;
+        _Follower.Poke();
 
         BaseStatistic stat = new BaseStatistic()
         {
