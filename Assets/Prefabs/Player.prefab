@@ -13,8 +13,7 @@ GameObject:
   - component: {fileID: 4045962747697613498}
   - component: {fileID: 114118589361100106}
   - component: {fileID: 114250499875391520}
-  - component: {fileID: 5194388907919410155}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53,7 +52,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  _CharacterAction: {fileID: 0}
   _CharacterHUD: {fileID: 0}
   _CharacterRegenerateMP: {fileID: 0}
   _CharacterSkillCooldown: {fileID: 0}
@@ -138,19 +136,6 @@ MonoBehaviour:
   showGizmos: 0
   showOverlay: 0
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
---- !u!135 &5194388907919410155
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1916082411674582}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0.25, z: 0}
 --- !u!1 &4801735920716236114
 GameObject:
   m_ObjectHideFlags: 0
@@ -163,7 +148,7 @@ GameObject:
   - component: {fileID: 9173402529202114193}
   - component: {fileID: 7082682967747795750}
   - component: {fileID: 2437599632489259742}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -257,7 +242,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2938261464824377298}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Front
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -288,7 +273,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 480482066342938121}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}

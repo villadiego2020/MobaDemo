@@ -16,9 +16,12 @@ public class SuperHeavyBullet : Bullet
     {
         if ((m_LayerMask.value & (1 << collision.transform.gameObject.layer)) > 0)
         {
-            print("HIT");
             //Damageable damageable = collision.transform.gameObject.GetComponent<Damageable>();
             //ApplyDamage(damageable);
+            Character character = collision.transform.gameObject.GetComponentInParent<Character>();
+
+            if (character != null)
+                character.OnHit(m_BulletDamagee);
         }
 
         Return();

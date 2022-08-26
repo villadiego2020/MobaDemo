@@ -1,4 +1,5 @@
 ﻿using Mirror;
+using System;
 using UnityEngine;
 
 public abstract class Bullet : NetworkBehaviour
@@ -50,11 +51,8 @@ public abstract class Bullet : NetworkBehaviour
     //    damageable.ApplyDamage(damageMessage);
     //}
 
-    [Server]
     public void Return()
     {
-        m_Rigidbody.Sleep();
-
         NetworkServer.Destroy(gameObject);
     }
 }

@@ -306,10 +306,11 @@ MonoBehaviour:
   syncInterval: 0.1
   m_LayerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_BulletForce: 0
   m_BulletDamagee: 0
-  m_ReflectAmount: 0
+  _Point: {x: 0, y: 0, z: 0}
+  _Angle: {x: 0, y: 0, z: 0}
 --- !u!114 &-1379186155179803990
 MonoBehaviour:
   m_ObjectHideFlags: 0

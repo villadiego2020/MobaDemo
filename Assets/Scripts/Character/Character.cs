@@ -51,8 +51,8 @@ public class Character : NetworkBehaviour
         BaseStatistic stat = new BaseStatistic()
         {
             Atk = 20,
-            MaxHP = 200,
-            HP = 100,
+            MaxHP = 500,
+            HP = 500,
             MaxMP = 100,
             MP = 100
         };
@@ -93,6 +93,12 @@ public class Character : NetworkBehaviour
     public void RegenerateMP(int regenMPValue, int max)
     {
         _CharacterStatistic.Stat.MP += regenMPValue;
+
+        if(_CharacterStatistic.Stat.MP > _CharacterStatistic.Stat.MaxMP)
+        {
+            _CharacterStatistic.Stat.MP = _CharacterStatistic.Stat.MaxMP;
+        }
+
         _CharacterHUD.AdjustMP(_CharacterStatistic.Stat.MP, _CharacterStatistic.Stat.MaxMP);
     }
 
@@ -232,7 +238,7 @@ public class Character : NetworkBehaviour
                 NetworkServer.Spawn(go);
 
                 HeavyBullet bullet = go.GetComponent<HeavyBullet>();
-                bullet.Apply(_EffectFrontPivot, _BulletForce, 20);
+                bullet.Apply(_EffectFrontPivot, _BulletForce, 10);
                 yield return new WaitForSeconds(0.15f);
             }
         };
@@ -266,7 +272,7 @@ public class Character : NetworkBehaviour
                 NetworkServer.Spawn(go);
 
                 SuperHeavyBullet bullet = go.GetComponent<SuperHeavyBullet>();
-                bullet.Apply(_EffectFrontPivot, _BulletForce, 50);
+                bullet.Apply(_EffectFrontPivot, _BulletForce, 10);
                 yield return new WaitForSeconds(0.15f);
             }
         };
@@ -290,5 +296,27 @@ public class Character : NetworkBehaviour
     private void Skill4CooldownDone()
     {
         isSkill4Cooldown = false;
+    }
+
+    [ClientRpc]
+    public void OnHit(int damage)
+    {
+        if(isLocalPlayer)
+        {
+            _CharacterStatistic.Stat.HP -= damage;
+
+            if (_CharacterStatistic.Stat.HP < 0)
+            {
+                _CharacterStatistic.Stat.HP = 0;
+            }
+
+            _CharacterHUD.AdjustHP(_CharacterStatistic.Stat.HP, _CharacterStatistic.Stat.MaxHP);
+
+            if (_CharacterStatistic.Stat.HP == 0)
+            {
+                NetworkServer.Destroy(gameObject);
+                NetworkClient.Disconnect();
+            }
+        }
     }
 }
