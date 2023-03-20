@@ -1,5 +1,6 @@
 using kcp2k;
 using Mirror;
+using Mirror.SimpleWeb;
 using Newtonsoft.Json;
 using System.Collections;
 using System.IO;
@@ -15,7 +16,8 @@ public class GamePlayBattle : NetworkManager
     {
         _Config = LoadConfigFile();
         networkAddress = _Config.NetworkAddress;
-        ((KcpTransport)transport).Port = _Config.Port;
+        ((SimpleWebTransport)transport).port = _Config.Port;
+        //((KcpTransport)transport).Port = _Config.Port;
 
         base.Awake();
     }

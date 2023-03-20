@@ -49,14 +49,14 @@ public class NetworkHUD : MonoBehaviour
     {
         if (!NetworkClient.active)
         {
-            //// Server + Client
-            //if (Application.platform != RuntimePlatform.WebGLPlayer)
-            //{
-            //    if (GUILayout.Button("Host (Server + Client)"))
-            //    {
-            //        manager.StartHost();
-            //    }
-            //}
+            // Server + Client
+            if (Application.platform != RuntimePlatform.WebGLPlayer)
+            {
+                if (GUILayout.Button("Host (Server + Client)"))
+                {
+                    manager.StartHost();
+                }
+            }
 
             // Client + IP
             GUILayout.BeginHorizontal();
@@ -65,19 +65,19 @@ public class NetworkHUD : MonoBehaviour
                 manager.StartClient();
             }
             //// This updates networkAddress every frame from the TextField
-            //manager.networkAddress = GUILayout.TextField(manager.networkAddress);
+            manager.networkAddress = GUILayout.TextField(manager.networkAddress);
             GUILayout.EndHorizontal();
 
-            //// Server Only
-            //if (Application.platform == RuntimePlatform.WebGLPlayer)
-            //{
-            //    // cant be a server in webgl build
-            //    GUILayout.Box("(  WebGL cannot be server  )");
-            //}
-            //else
-            //{
-            //    if (GUILayout.Button("Server Only")) manager.StartServer();
-            //}
+            // Server Only
+            if (Application.platform == RuntimePlatform.WebGLPlayer)
+            {
+                // cant be a server in webgl build
+                GUILayout.Box("(  WebGL cannot be server  )");
+            }
+            else
+            {
+                if (GUILayout.Button("Server Only")) manager.StartServer();
+            }
         }
         else
         {
