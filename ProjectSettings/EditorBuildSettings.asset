@@ -14,7 +14,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Mirror/Examples/Pong/Scenes/Scene.unity
     guid: 89a84548859e3b643b4fb27984dc2b0d
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/BattleMultiplayer.unity
     guid: 08870eb64e2e7a844a8d44a458cc336d
+  - enabled: 1
+    path: Assets/Scenes/SimulateTest.unity
+    guid: 52847f68f800e5d469e523ace7aa490c
   m_configObjects: {}

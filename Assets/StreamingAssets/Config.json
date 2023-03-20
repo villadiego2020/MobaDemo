@@ -3,5 +3,7 @@
   "port":9999,
   "mp_regen_rate": 1,
   "mp_regen_value":15,
-  "skill_cooldown":3
+  "skill_cooldown":3,
+  "simulate_amount":300,
+  "target_fps": 120
 }

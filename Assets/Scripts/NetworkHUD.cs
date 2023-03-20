@@ -92,22 +92,21 @@ public class NetworkHUD : MonoBehaviour
 
     void StatusLabels()
     {
-        // host mode
-        // display separately because this always confused people:
-        //   Server: ...
-        //   Client: ...
-        //if (NetworkServer.active && NetworkClient.active)
-        //{
-        //    GUILayout.Label($"<b>Host</b>: running via {Transport.activeTransport}");
-        //}
-        //// server only
-        //else if (NetworkServer.active)
-        //{
-        //    GUILayout.Label($"<b>Server</b>: running via {Transport.activeTransport}");
-        //}
-        //// client only
-        //else 
-        if (NetworkClient.isConnected)
+    //    host mode
+    //     display separately because this always confused people:
+    //Server: ...
+    //       Client: ...
+        if (NetworkServer.active && NetworkClient.active)
+        {
+            GUILayout.Label($"<b>Host</b>: running via {Transport.activeTransport}");
+        }
+        // server only
+        else if (NetworkServer.active)
+        {
+            GUILayout.Label($"<b>Server</b>: running via {Transport.activeTransport}");
+        }
+        // client only
+        else if (NetworkClient.isConnected)
         {
             GUILayout.Label($"<b>Client</b>: connected to {manager.networkAddress} via {Transport.activeTransport}");
         }
@@ -116,29 +115,28 @@ public class NetworkHUD : MonoBehaviour
     void StopButtons()
     {
         // stop host if host mode
-        //if (NetworkServer.active && NetworkClient.isConnected)
-        //{
-        //    if (GUILayout.Button("Stop Host"))
-        //    {
-        //        manager.StopHost();
-        //    }
-        //}
-        //// stop client if client-only
-        //else 
-        if (NetworkClient.isConnected)
+        if (NetworkServer.active && NetworkClient.isConnected)
+        {
+            if (GUILayout.Button("Stop Host"))
+            {
+                manager.StopHost();
+            }
+        }
+        // stop client if client-only
+        else if (NetworkClient.isConnected)
         {
             if (GUILayout.Button("Stop Client"))
             {
                 manager.StopClient();
             }
         }
-        //// stop server if server-only
-        //else if (NetworkServer.active)
-        //{
-        //    if (GUILayout.Button("Stop Server"))
-        //    {
-        //        manager.StopServer();
-        //    }
-        //}
+        // stop server if server-only
+        else if (NetworkServer.active)
+        {
+            if (GUILayout.Button("Stop Server"))
+            {
+                manager.StopServer();
+            }
+        }
     }
 }

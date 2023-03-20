@@ -16,11 +16,12 @@ public class GamePlayBattle : NetworkManager
     {
         _Config = LoadConfigFile();
         networkAddress = _Config.NetworkAddress;
+        //((SimpleWebTransport)((LatencySimulation)transport).wrap).port = _Config.Port;
         ((SimpleWebTransport)transport).port = _Config.Port;
         //((KcpTransport)transport).Port = _Config.Port;
 
         base.Awake();
-    }
+    } 
 
     public override void OnServerAddPlayer(NetworkConnectionToClient conn)
     {
@@ -92,5 +93,18 @@ public class GamePlayBattle : NetworkManager
 
         [JsonProperty("skill_cooldown")]
         public int SkillCooldown { get; set; }
+
+        [JsonProperty("simulate_amount")]
+        public int SimulateAmount { get; set; }
+
+        [JsonProperty("target_fps")]
+        public int TargetFramerate { get; set; }
+
+        public override string ToString()
+        {
+            return $"NetworkAddress {NetworkAddress}:{Port}" +
+                $"SimulateAmount {SimulateAmount}" +
+                $"TargetFramerate {TargetFramerate}";
+        }
     }
 }
